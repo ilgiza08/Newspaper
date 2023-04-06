@@ -1,0 +1,73 @@
+from article.models import *
+
+user01 = User.objects.create(username ='ilgiza1', first_name = 'fn1')
+Author.objects.create(user=user01)
+user02 = User.objects.create(username = 'ilgiza2', first_name = 'fn2')
+Author.objects.create(user=user02)
+
+Category.objects.create(categoryName='Home')
+Category.objects.create(categoryName='Health')
+Category.objects.create(categoryName='Sport')
+Category.objects.create(categoryName='Education')
+
+Post.objects.create(author=Author.objects.get(user=User.objects.get(username='ilgiza1')), postType='NW', title='title 1', text = 'dfdgf')
+Post.objects.create(author=Author.objects.get(user=User.objects.get(username='ilgiza1')), postType='AR', title='title 2', text = 'dfdgf')
+Post.objects.create(author=Author.objects.get(user=User.objects.get(username='ilgiza2')), postType='AR', title='title 3', text = 'dfdgf')
+
+p1=Post.objects.get(pk=4)
+p2=Post.objects.get(pk=5)
+p3=Post.objects.get(pk=6)
+c1=Category.objects.get(categoryName='Home')
+c2=Category.objects.get(categoryName='Sport')
+c3=Category.objects.get(categoryName='Health')
+c4=Category.objects.get(categoryName='Education')
+p1.postCategory.add(c1)
+p1.postCategory.add(c2)
+p2.postCategory.add(c2)
+p2.postCategory.add(c3)
+p3.postCategory.add(c4)
+p3.postCategory.add(c3)
+
+Comment.objects.create(userComment=User.objects.get(username='ilgiza1'), postComment=p1, commentText='comment text')
+Comment.objects.create(userComment=User.objects.get(username='ilgiza1'), postComment=p3, commentText='comment tex23t')
+Comment.objects.create(userComment=User.objects.get(username='ilgiza2'), postComment=p1, commentText='comment tex23qwet')
+Comment.objects.create(userComment=User.objects.get(username='ilgiza2'), postComment=p2, commentText='comment tex23qwet')
+Comment.objects.create(userComment=User.objects.get(username='ilgiza2'), postComment=p3, commentText='comment tex23qwet')
+
+p1.like()
+p1.like()
+p1.like()
+p1.like()
+p2.like()
+p2.like()
+p2.like()
+p3.deslike()
+p3.deslike()
+p3.deslike()
+
+Comment.objects.get(pk=6).like()
+Comment.objects.get(pk=7).like()
+Comment.objects.get(pk=6).like()
+Comment.objects.get(pk=6).like()
+Comment.objects.get(pk=10).like()
+Comment.objects.get(pk=8).deslike()
+Comment.objects.get(pk=8).deslike()
+Comment.objects.get(pk=8).deslike()
+Comment.objects.get(pk=8).deslike()
+Comment.objects.get(pk=10).deslike()
+Comment.objects.get(pk=10).like()
+Comment.objects.get(pk=7).like()
+
+Author.objects.get(user=User.objects.get(username='ilgiza1')).update_rating()
+Author.objects.get(user=User.objects.get(username='ilgiza1')).ratingAuthor
+
+Author.objects.get(user=User.objects.get(username='ilgiza2')).update_rating()
+Author.objects.get(user=User.objects.get(username='ilgiza2')).ratingAuthor
+
+best = Author.objects.all().order_by('-ratingAuthor').values('user', 'ratingAuthor')[0]
+print(best)
+
+bestPost = Post.objects.all().order_by('-rating').values('time', 'author__user__username', 'rating', 'title')[0]
+print(bestPost)
+
+Comment.objects.filter(postComment__author = 4).values("commentTime","userComment__username", "commentText")

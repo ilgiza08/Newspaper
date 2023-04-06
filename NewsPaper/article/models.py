@@ -8,25 +8,16 @@ class Author(models.Model):
     ratingAuthor = models.IntegerField(default=0)
 
     def update_rating(self):
-        postRat = self.post_set.all().aggregate(postRating=Sum('rating'))
-        pRat = 0
-        pRat +=postRat.get('postRating')
+        ratPost = Post.objects.filter(author__user = self.user).aggregate(postRating=Sum('rating'))['postRating']
+        ratComment = self.user.comment_set.all().aggregate(commentRating=Sum('rating'))['commentRating']
+        ratPostComment = Comment.objects.filter(postComment__author__user = self.user).aggregate(postCommentRat=Sum('rating'))['postCommentRat']
 
-        commentRat = self.user.comment_set.all().aggregate(commentRating=Sum('rating'))
-        cRat = 0
-        cRat +=commentRat.get('commentRating')
-
-        #postCommentRat = self.
-
-        self.ratingAuthor = pRat * 3 +cRat 
+        self.ratingAuthor = ratPost * 3 + ratComment + ratPostComment
         self.save() 
-
-
 
 
 class Category(models.Model):
     categoryName = models.CharField(max_length=64, unique=True)
-
 
 class Post(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
