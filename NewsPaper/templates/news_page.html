@@ -1,12 +1,14 @@
-<!--  наследуемся от шаблона default.html, который мы создавали ещё во времена flatpages -->
 {% extends 'flatpages/default.html' %} 
  
-<!-- Название у нас будет proudcts -->
 {% block title %}
 Новости детально
 {% endblock title %}
  
-<!-- В контенте на странице мы выводим сам товар, айди которого было передано в адрес -->
 {% block content %}
-<h1>{{ news_page }}</h1>
+<h1>{{ news_page.title }}</h1>
+<i>Дата публикации: {{news_page.time|date:'d M Y' }}</i>
+<p>{{news_page.text}}</p>
+<p><i>Автор: {{news_page.author}}<br>
+Рейтинг: {{news_page.rating}}</i></p>
+
 {% endblock content %}
