@@ -1,13 +1,14 @@
 {% extends 'flatpages/default.html' %} 
+{% load custom_filters %}
  
 {% block title %}
 Новости детально
 {% endblock title %}
  
 {% block content %}
-<h1>{{ news_page.title }}</h1>
+<h1>{{ news_page.title|Censor }}</h1>
 <i>Дата публикации: {{news_page.time|date:'d M Y' }}</i>
-<p>{{news_page.text}}</p>
+<p>{{news_page.text|Censor}}</p>
 <p><i>Автор: {{news_page.author}}<br>
 Рейтинг: {{news_page.rating}}</i></p>
 
