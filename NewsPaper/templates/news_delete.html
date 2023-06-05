@@ -1,0 +1,36 @@
+{% extends 'flatpages/default.html' %} 
+{% load custom_filters %}
+
+{% block title %} Удаление {% endblock title %}
+ 
+{% block content %}
+<h2>Вы действительно хотите удалить статью?</h2>
+<table>
+    <thead>
+        <th>
+            Заголовок
+        </th>
+        <th>
+            Дата публикации
+        </th>
+        <th>
+            Описание
+        </th>
+    </thead>
+    <tr>
+        <td>
+            {{ object.title|Censor}}
+        </td>
+        <td>
+            {{ object.time|date:'d-M-Y H:i'}}
+        </td>
+        <td>
+            {{object.text|truncatechars:50|Censor }}
+        </td>
+    </tr>
+</table>
+ 
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="подтвердить"></form>
+{% endblock content %} 

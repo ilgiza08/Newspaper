@@ -24,7 +24,9 @@
         {% for news_page in news %}
             <tr>
                 <td>
-                    {{ news_page.title|Censor}}
+                    <a href="{% url 'news_detail' news_page.id %}">{{news_page.title|Censor}}</a>
+                    <a href="{% url 'news_edit' news_page.id%}">Редактировать</a>
+                    <a href="{% url 'news_delete' news_page.id %}">Удалить</a>
                 </td>
                 <td>
                     {{ news_page.time|date:'d-M-Y H:i' }}
@@ -35,6 +37,7 @@
             </tr>
         {% endfor %}
         </table>
+        <a href="{% url 'news_add' %}">Добавить статью или новость</a> <br>
     {% else %}
         <h2>Новостей нет!</h2>
     {% endif %}
