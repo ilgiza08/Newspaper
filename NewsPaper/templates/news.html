@@ -37,9 +37,10 @@
             </tr>
         {% endfor %}
         </table>
-        <a href="{% url 'news_add' %}">Добавить статью или новость</a> <br>
+        
+        <h3><a href="{% url 'news_add' %}">Добавить статью или новость</a></h3> <br>
     {% else %}
-        <h2>Новостей нет!</h2>
+        <h3>Новостей нет!</h3>
     {% endif %}
 
     {% if is_paginated %}

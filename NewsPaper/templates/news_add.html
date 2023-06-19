@@ -9,4 +9,8 @@
     {{ form }} 
     <input type="submit" value="Добавить новость">
 </form>
+<br/>
+{% if is_not_author %}
+<button> <a href="/upgrade/"> Хочу стать автором!</a> </button>
+{% endif %}
 {% endblock content %}
