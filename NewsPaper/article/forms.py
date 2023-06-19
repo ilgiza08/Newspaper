@@ -6,4 +6,4 @@ class NewsForm(ModelForm):
 
     class Meta:
         model = Post
-        fields = ['title']
+        fields = ['title', 'text']

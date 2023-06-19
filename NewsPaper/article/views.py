@@ -2,6 +2,7 @@ from django.views.generic import ListView, DetailView, UpdateView, CreateView, D
 from .models import Post
 from .filters import NewsFilter
 from .forms import NewsForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 class NewsList(ListView):
     model = Post
@@ -36,13 +37,23 @@ class NewsDelete(DeleteView):
     queryset = Post.objects.all()
     success_url = '/news/'
 
-class NewsUpdate(UpdateView):
+# class NewsUpdate(UpdateView):
+#     template_name = 'news_add.html'
+#     form_class = NewsForm
+
+#     def get_object(self, **kwargs):
+#         id = self.kwargs.get('pk')
+#         return Post.objects.get(pk=id)
+    
+class NewsUpdate(LoginRequiredMixin, UpdateView):
     template_name = 'news_add.html'
     form_class = NewsForm
+
 
     def get_object(self, **kwargs):
         id = self.kwargs.get('pk')
         return Post.objects.get(pk=id)
+    
     
 class NewsCreateView(CreateView):
     template_name = 'news_create.html'
