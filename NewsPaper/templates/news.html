@@ -39,6 +39,11 @@
         </table>
         
         <h3><a href="{% url 'news_add' %}">Добавить статью или новость</a></h3> <br>
+
+        {% if is_not_author %}
+        <button> <a href="{% url 'upgrade'%}"> Хочу стать автором!</a> </button> <br>
+        {% endif %}
+
     {% else %}
         <h3>Новостей нет!</h3>
     {% endif %}

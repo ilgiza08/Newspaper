@@ -2,8 +2,7 @@ from django.views.generic import ListView, DetailView, UpdateView, CreateView, D
 from .models import Post
 from .filters import NewsFilter
 from .forms import NewsForm
-from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import redirect
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
@@ -14,6 +13,11 @@ class NewsList(ListView):
     context_object_name = 'news'
     queryset = Post.objects.order_by('-time')
     paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_not_author'] = not self.request.user.groups.filter(name = 'authors').exists()
+        return context
 
 class NewsPage(DetailView):
     model = Post
@@ -32,9 +36,11 @@ class NewsSearch(ListView):
         return context
     
 
-class NewsAdd(CreateView):
+class NewsAdd(PermissionRequiredMixin, CreateView):
     template_name = 'news_add.html'
     form_class = NewsForm
+    permission_required = ('article.add_post', )
+
 
 class NewsDelete(DeleteView):
     template_name = 'news_delete.html'
@@ -42,9 +48,10 @@ class NewsDelete(DeleteView):
     success_url = '/news/'
 
     
-class NewsUpdate(LoginRequiredMixin, UpdateView):
+class NewsUpdate(PermissionRequiredMixin, UpdateView):
     template_name = 'news_add.html'
     form_class = NewsForm
+    permission_required = ('article.change_post', )
 
     def get_object(self, **kwargs):
         id = self.kwargs.get('pk')
@@ -55,11 +62,6 @@ class NewsUpdate(LoginRequiredMixin, UpdateView):
         context['is_not_author'] = not self.request.user.groups.filter(name = 'authors').exists()
         return context
     
-    
-class NewsCreateView(CreateView):
-    template_name = 'news_create.html'
-    form_class = NewsForm
-
 
 @login_required
 def upgrade_me(request):
@@ -67,7 +69,7 @@ def upgrade_me(request):
     authors_group = Group.objects.get(name='authors')
     if not request.user.groups.filter(name='authors').exists():
         authors_group.user_set.add(user)
-    return redirect('/')
+    return redirect('/news/')
 
 
 
