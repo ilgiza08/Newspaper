@@ -8,5 +8,6 @@ class NewsFilter(FilterSet):
         fields = {
             'time': ['gt'],
             'title': ['icontains'],
-            'author__user': ['exact']
+            'author__user': ['exact'],
+            'postCategory': ['exact'],
         }   

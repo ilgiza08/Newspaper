@@ -20,6 +20,7 @@
                 <td>
                     Описание
                 </td>
+                <td>Категория</td>
             </tr>
         {% for news_page in news %}
             <tr>
@@ -33,6 +34,11 @@
                 </td>
                 <td>
                     {{ news_page.text|truncatechars:50|Censor }}
+                </td>
+                <td> 
+                    {% for ps in news_page.postCategory.all %}
+                        {{ ps }}
+                    {% endfor %}
                 </td>
             </tr>
         {% endfor %}
