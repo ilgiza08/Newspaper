@@ -10,6 +10,8 @@ class NewsForm(ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'text', 'author', 'postCategory']
+    
+
 
 class BasicSignupForm(SignupForm):
 

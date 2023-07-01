@@ -1,0 +1,39 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+
+{% block title %}
+Новости
+{% endblock title %}
+ 
+{% block content %}
+
+<h1>Новости категории {{news_by_category}}</h1>
+<button><a href="{% url 'subscribe' news_by_category.id %}">Подписаться на категорию</a></button>
+
+{% if news_by_category %} 
+    <table>
+        <tr>
+            <td>
+                Заголовок
+            </td>
+            <td>
+                Описание
+            </td>
+        </tr>
+        {% for news in news_by_category.post_set.all %}
+        <tr>
+            <td>
+                {{ news.title }}
+            </td>
+            <td>
+                {{ news.text }}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+{% else %}
+    <h3>Новостей нет!</h3>
+{% endif %}
+
+{% endblock content %}

@@ -37,7 +37,7 @@
                 </td>
                 <td> 
                     {% for ps in news_page.postCategory.all %}
-                        {{ ps }}
+                        <a href="{% url 'news_category' ps.id %}">{{ ps }}</a>
                     {% endfor %}
                 </td>
             </tr>

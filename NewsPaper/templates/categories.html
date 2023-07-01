@@ -1,0 +1,17 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+ 
+{% block title %}
+Категории
+{% endblock title %}
+ 
+{% block content %}
+<table>
+    {% for category in category_list %}
+    <tr>
+        <td>
+            <a href="{% url 'news_category' category.id %}">{{ category }}</a>
+        </td>
+    </tr>
+    {% endfor %}
+{% endblock content %}
