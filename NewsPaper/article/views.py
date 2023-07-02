@@ -6,8 +6,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.shortcuts import redirect
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
-from django.core.mail import send_mail
 from django.http import HttpResponse
+
 
 class NewsList(ListView):
     model = Post
@@ -21,16 +21,19 @@ class NewsList(ListView):
         context['is_not_author'] = not self.request.user.groups.filter(name = 'authors').exists()
         return context
 
+
 class NewsPage(DetailView):
     model = Post
     template_name = 'news_page.html'
     context_object_name = 'news_page'
+
 
 class NewsSearch(ListView):
     model = Post
     template_name = 'news_search.html'
     context_object_name = 'news_search'
     paginate_by = 10
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -42,26 +45,7 @@ class NewsAdd(PermissionRequiredMixin, CreateView):
     template_name = 'news_add.html'
     form_class = NewsForm
     permission_required = ('article.add_post', )
-    
-    def post(self, request, *args, **kwargs):
-        title = request.POST['title']
-        text = request.POST['text']
-        author = request.POST['author']
-        postCategory = request.POST['postCategory']
- 
-        post = Post(title=title, text=text, author=Author.objects.get(user=author), postCategory=postCategory)
-        post.save()
-
-        send_mail( 
-             subject=self.request.POST['title'],
-             message=f'Здравствуй, username. Новая статья в твоём любимом разделе!', 
-             from_email='il.ilgiza@yandex.ru', 
-             recipient_list= ['ilgiza.azamatova@gmail.com',]
-         )
         
-        return super().get(request, *args, **kwargs)
-
-
 
 class NewsDelete(DeleteView):
     template_name = 'news_delete.html'
@@ -92,6 +76,7 @@ def upgrade_me(request):
         authors_group.user_set.add(user)
     return redirect('/news/')
 
+
 class CategoryList(ListView):
     model = Category
     template_name = 'categories.html'
@@ -103,6 +88,7 @@ class NewsByCategory(DetailView):
     model = Category
     template_name = 'news_by_category.html'
     context_object_name = 'news_by_category'
+
 
 @login_required
 def subscribe(request, pk):

@@ -11,6 +11,8 @@
 <p>{{news_page.text|Censor}}</p>
 <p><i>Автор: {{news_page.author}}<br>
 Рейтинг: {{news_page.rating}} <br>
-Категория: {{news_page.categoryName}}</i></p>
+Категория: {% for ps in news_page.postCategory.all %}
+<a href="{% url 'news_category' ps.id %}">{{ ps }}</a>
+{% endfor %}</i></p>
 
 {% endblock content %}
