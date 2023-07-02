@@ -109,7 +109,6 @@ def subscribe(request, pk):
     user = request.user
     category = Category.objects.get(id=pk)
     category.subscribers.add(user)
-    # return redirect('/news/catigories')
     return HttpResponse(f"<h2>Вы подписались на категорию {category}</h2>")
 
 

@@ -4,8 +4,13 @@
 <title>{% block title %} {% endblock title %}</title>
 </head>
 <body>
+<header>
+    <p><a href="{% url 'account_login' %}">Вход</a></p>  
+    <p><a href="{% url 'account_signup' %}">Регистрация</a></p>  
+    <p><a href="{% url 'account_logout' %}">Выход</a></p> 
+</header>
     {% block content %}
     {% endblock content %}
-    <hr>
+    
 </body>
 </html>
