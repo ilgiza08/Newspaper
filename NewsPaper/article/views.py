@@ -7,6 +7,7 @@ from django.shortcuts import redirect
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+import datetime
 
 
 class NewsList(ListView):
@@ -45,6 +46,15 @@ class NewsAdd(PermissionRequiredMixin, CreateView):
     template_name = 'news_add.html'
     form_class = NewsForm
     permission_required = ('article.add_post', )
+
+    def get_context_data(self, **kwargs):
+       context = super().get_context_data(**kwargs)
+       end_date = datetime.datetime.now()
+       start_date = end_date - 1
+       news_count = len(self.request.user__author.posts.filter(time__range=(start_date, end_date)))
+       context['more_than_three'] = news_count >= 3
+    #    context['more_than_three'] = len(self.request.user__author.posts.filter(time__range=(start_date, end_date)))
+       return context
         
 
 class NewsDelete(DeleteView):
