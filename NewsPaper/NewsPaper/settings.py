@@ -11,7 +11,10 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path, os
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
+# dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+# if os.path.exists(dotenv_path):
+#     load_dotenv(dotenv_path)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -49,6 +52,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+
+    'django_apscheduler',
 ]
 
 
@@ -161,7 +166,6 @@ ACCOUNT_LOGOUT_REDIRECT_URL = '/news/'
 ACCOUNT_FORMS = {'signup': 'article.forms.BasicSignupForm'}
 
 
-load_dotenv()
 EMAIL_HOST = 'smtp.yandex.ru' 
 EMAIL_PORT = 465 
 # EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
@@ -171,3 +175,13 @@ EMAIL_HOST_PASSWORD = 'onccfugkwnmskxch'
 EMAIL_USE_SSL = True
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER + '@yandex.ru'
+
+# django_apscheduler
+# формат даты, которую будет воспринимать наш задачник(вспоминаем урок по фильтрам) 
+APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
+ 
+# если задача не выполняется за 25 секунд, то она автоматически снимается, можете поставить время побольше, но как правило, это сильно бьёт по производительности сервера
+APSCHEDULER_RUN_NOW_TIMEOUT = 25  # Seconds
+
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

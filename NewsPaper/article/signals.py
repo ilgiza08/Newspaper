@@ -16,7 +16,7 @@ def notify_add_news(sender, instance, action, **kwargs):
 
     send_mail( 
             subject=subject,
-            message=f'Здравствуй. Новая статья в твоём любимом разделе!', 
+            message=f'Здравствуй. Новая статья в твоём любимом разделе! {instance.url}', 
             from_email='il.ilgiza@yandex.ru', 
             recipient_list= subscribers_list,
         )

@@ -5,6 +5,10 @@ from .forms import NewsForm
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import redirect
 from django.contrib.auth.models import Group
+
+from django.template.loader import render_to_string
+from django.core.mail import EmailMultiAlternatives
+
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 import datetime
@@ -47,14 +51,14 @@ class NewsAdd(PermissionRequiredMixin, CreateView):
     form_class = NewsForm
     permission_required = ('article.add_post', )
 
-    def get_context_data(self, **kwargs):
-       context = super().get_context_data(**kwargs)
-       end_date = datetime.datetime.now()
-       start_date = end_date - 1
-       news_count = len(self.request.user__author.posts.filter(time__range=(start_date, end_date)))
-       context['more_than_three'] = news_count >= 3
-    #    context['more_than_three'] = len(self.request.user__author.posts.filter(time__range=(start_date, end_date)))
-       return context
+    # def get_context_data(self, **kwargs):
+    #    context = super().get_context_data(**kwargs)
+    #    end_date = datetime.datetime.now()
+    #    start_date = end_date - 1
+    #    news_count = len(self.request.user__author.posts.filter(time__range=(start_date, end_date)))
+    #    context['more_than_three'] = news_count >= 3
+    # #    context['more_than_three'] = len(self.request.user__author.posts.filter(time__range=(start_date, end_date)))
+    #    return context
         
 
 class NewsDelete(DeleteView):
@@ -104,9 +108,34 @@ class NewsByCategory(DetailView):
 def subscribe(request, pk):
     user = request.user
     category = Category.objects.get(id=pk)
-    category.subscribers.add(user)
-    return HttpResponse(f"<h2>Вы подписались на категорию {category}</h2>")
+    if not category.subscribers.filter(id=user.id).exists():
+        category.subscribers.add(user)
+        print(category.subscribers.all)
+        email = user.email
+        html = render_to_string(
+            'subscribed.html',
+            {
+                'user': user,
+                'category': category, 
+            }
+        )
 
+        msg = EmailMultiAlternatives(
+            subject=f'{category}',
+            body = '',
+            from_email='il.ilgiza@yandex.ru', 
+            to=[email,],
+        )
+
+        msg.attach_alternative(html, "text/html")
+        try:
+            msg.send()
+        except Exception as e:
+            print(e)
+        return HttpResponse(f"<h2>Вы подписались на категорию {category}</h2>")
+        
+        
+    return redirect('/news/')
 
 
    
