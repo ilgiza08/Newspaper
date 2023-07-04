@@ -113,7 +113,7 @@ def subscribe(request, pk):
         print(category.subscribers.all)
         email = user.email
         html = render_to_string(
-            'subscribed.html',
+            'mail/subscribed.html',
             {
                 'user': user,
                 'category': category, 
