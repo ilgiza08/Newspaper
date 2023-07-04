@@ -164,12 +164,10 @@ ACCOUNT_FORMS = {'signup': 'article.forms.BasicSignupForm'}
 
 EMAIL_HOST = 'smtp.yandex.ru' 
 EMAIL_PORT = 465 
-EMAIL_HOST_USER = 'il.ilgiza'
-EMAIL_HOST_PASSWORD = 'onccfugkwnmskxch'
 EMAIL_USE_SSL = True
 
-# EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER + '@yandex.ru'
 

@@ -2,6 +2,7 @@ from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
 from article.models import User
 import datetime
+from django.conf import settings
 
 def notify_add_news(instance):
     subject = f'{instance.title}',
@@ -22,7 +23,7 @@ def notify_add_news(instance):
         msg = EmailMultiAlternatives(
             subject=subject,
             body = '',
-            from_email='il.ilgiza@yandex.ru', 
+            from_email=settings.EMAIL_HOST_USER,
             to=[subscribers_list,],
         )
         msg.attach_alternative(html, 'text/html')
@@ -57,7 +58,7 @@ def notify_weekly():
         msg = EmailMultiAlternatives(
             subject='Новые статьи в любимых категориях',
             body = '',
-            from_email='il.ilgiza@yandex.ru', 
+            from_email=settings.EMAIL_HOST_USER, 
             to=[user.email,],
         )
         msg.attach_alternative(html, 'text/html')

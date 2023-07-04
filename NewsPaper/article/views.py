@@ -11,8 +11,8 @@ from django.core.mail import EmailMultiAlternatives
 
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-import datetime
 
+from django.conf import settings
 
 class NewsList(ListView):
     model = Post
@@ -124,7 +124,7 @@ def subscribe(request, pk):
         msg = EmailMultiAlternatives(
             subject=f'{category}',
             body = '',
-            from_email='il.ilgiza@yandex.ru', 
+            from_email=settings.EMAIL_HOST_USER,
             to=[email,],
         )
 
