@@ -7,8 +7,7 @@ from apscheduler.triggers.cron import CronTrigger
 from django.core.management.base import BaseCommand
 from django_apscheduler.jobstores import DjangoJobStore
 from django_apscheduler.models import DjangoJobExecution
-
-from django.core.mail import send_mail
+from article.tasks import notify_weekly
  
  
 logger = logging.getLogger(__name__)
@@ -16,15 +15,8 @@ logger = logging.getLogger(__name__)
  
 # наша задача по выводу текста на экран
 def my_job():
-    subscribers_list = []
-   
-    send_mail( 
-            subject='Здравствуй',
-            message=f'Здравствуй. Новая статья в твоём любимом разделе!', 
-            from_email='il.ilgiza@yandex.ru', 
-            recipient_list= subscribers_list,
-        )
- 
+    notify_weekly()
+    print('HIIIIII')
  
 # функция которая будет удалять неактуальные задачи
 def delete_old_job_executions(max_age=604_800):
@@ -42,7 +34,7 @@ class Command(BaseCommand):
         # добавляем работу нашему задачнику
         scheduler.add_job(
             my_job,
-            trigger=CronTrigger(week="*/1"),  # Тоже самое что и интервал, но задача тригера таким образом более понятна django
+            trigger=CronTrigger(second="*/5"),  # Тоже самое что и интервал, но задача тригера таким образом более понятна django
             id="my_job",  # уникальный айди
             max_instances=1,
             replace_existing=True,
