@@ -35,7 +35,8 @@ def get_new_post_list(subscriptions):
     new_post_list = []
     for sub in subscriptions:
            new_posts = sub.post_set.filter(time__range=(start_date, end_date))
-           new_post_list.append(new_posts)
+           for np in new_posts:
+               new_post_list.append(np)
     return new_post_list
 
 
@@ -44,10 +45,9 @@ def notify_weekly():
     for user in users:
         subscriptions = user.category_set.all()
         new_post_list = get_new_post_list(subscriptions)
-        
-        print(f'NEW POST LIST {new_post_list}')
-        
-        html = render_to_string(
+
+        if new_post_list:
+            html = render_to_string(
             template_name = 'mail/weekly_mailing.html',
             context={
                 'posts': new_post_list,
@@ -62,6 +62,10 @@ def notify_weekly():
         )
         msg.attach_alternative(html, 'text/html')
         msg.send()
+
+
+        
+        
         
 
         

@@ -88,6 +88,7 @@ def upgrade_me(request):
     authors_group = Group.objects.get(name='authors')
     if not request.user.groups.filter(name='authors').exists():
         authors_group.user_set.add(user)
+        Author.objects.create(user=user)
     return redirect('/news/')
 
 
@@ -134,27 +135,8 @@ def subscribe(request, pk):
             print(e)
         return HttpResponse(f"<h2>Вы подписались на категорию {category}</h2>")
         
-        
     return redirect('/news/')
 
-
-def notify_weekly_draft():
-    users=User.objects.all()
-    for user in users:
-        subscriptions = user.category_set.all()
-        print(f'USER SUS-N {subscriptions}')
-
-        end_date = datetime.datetime.now()
-        start_date = end_date - datetime.timedelta(days=7)
-        
-        for sub in subscriptions:
-            new_post_list = []
-            new_posts = sub.post_set.filter(time__range=(start_date, end_date))
-            new_post_list.append(new_posts)
-        
-    print(f'NEW POST LIST {new_post_list}')
-
-# notify_weekly_draft()
 
 
 
