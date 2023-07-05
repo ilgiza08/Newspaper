@@ -13,6 +13,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 
 from django.conf import settings
+from django.core.cache import cache
 
 class NewsList(ListView):
     model = Post
@@ -31,6 +32,15 @@ class NewsPage(DetailView):
     model = Post
     template_name = 'news_page.html'
     context_object_name = 'news_page'
+
+    def get_object(self, *args, **kwargs): 
+        obj = cache.get(f'product-{self.kwargs["pk"]}', None) 
+        
+        if not obj:
+            obj = super().get_object(queryset=self.queryset) 
+            cache.set(f'product-{self.kwargs["pk"]}', obj)
+        
+        return obj
 
 
 class NewsSearch(ListView):
