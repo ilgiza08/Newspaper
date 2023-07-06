@@ -8,8 +8,11 @@ class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     ratingAuthor = models.IntegerField(default=0)
 
+    def __str__(self):
+        return f'{self.user.first_name} {self.user.last_name}'
+
     def update_rating(self):
-        ratPost = Post.objects.filter(author__user = self.user).aggregate(postRating=Sum('rating'))['postRating']
+        ratPost = Post.objects.filter(author__user=self.user).aggregate(postRating=Sum('rating'))['postRating']
         ratComment = self.user.comment_set.all().aggregate(commentRating=Sum('rating'))['commentRating']
         ratPostComment = Comment.objects.filter(postComment__author__user = self.user).aggregate(postCommentRat=Sum('rating'))['postCommentRat']
 
@@ -59,10 +62,13 @@ class Post(models.Model):
         self.rating -= 1
         self.save()
 
-
     def preview(self):
         text = self.text[:124]
         return text + '...'
+    
+    @property
+    def good_rating(self):
+        return self.rating > 0
 
 
 class PostCategory(models.Model):
