@@ -1,7 +1,7 @@
-from django_filters import FilterSet 
+from django_filters import FilterSet
 from .models import Post
- 
- 
+
+
 class NewsFilter(FilterSet):
     class Meta:
         model = Post
@@ -10,4 +10,4 @@ class NewsFilter(FilterSet):
             'title': ['icontains'],
             'author__user': ['exact'],
             'postCategory': ['exact'],
-        }   
+        }

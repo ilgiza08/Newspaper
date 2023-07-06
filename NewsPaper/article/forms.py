@@ -1,4 +1,4 @@
-from django.forms import ModelForm 
+from django.forms import ModelForm
 from .models import Post
 
 from allauth.account.forms import SignupForm
@@ -10,9 +10,8 @@ class NewsForm(ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'text', 'author', 'postCategory']
-    
 
-
+        
 class BasicSignupForm(SignupForm):
 
     def save(self, request):
