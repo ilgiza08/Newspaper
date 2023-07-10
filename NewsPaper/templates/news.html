@@ -34,7 +34,7 @@
                     {{ news_page.time|date:'d-M-Y H:i' }}
                 </td>
                 <td>
-                    {{ news_page.text|truncatechars:50|Censor }}
+                    {{ news_page.text|truncatechars:50|replace_letters }}
                 </td>
                 <td> 
                     {% for ps in news_page.postCategory.all %}

@@ -8,7 +8,7 @@
 {% block content %}
 <h1>{{ news_page.title|Censor }}</h1>
 <i>Дата публикации: {{news_page.time|date:'d M Y' }}</i>
-<p>{{news_page.text|Censor}}</p>
+<p>{{news_page.text|replace_letters}}</p>
 <p><i>Автор: {{news_page.author}}<br>
 Рейтинг: {{news_page.rating}} <br>
 Категория: {% for ps in news_page.postCategory.all %}
