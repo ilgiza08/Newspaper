@@ -16,6 +16,10 @@ from django.http import HttpResponse
 from django.conf import settings
 from django.core.cache import cache
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 class NewsList(ListView):
     """Выводит страницу со списком статей"""
