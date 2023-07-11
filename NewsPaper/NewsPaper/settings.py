@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-9rl0e6p3*ogb4fd-=k4tyi)^c3n&pjr1f+$z=$f(45tjwv#bb+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['www.example.com']
 
 
 # Application definition
@@ -189,6 +189,7 @@ CACHES = {
     }
 }
 
+ADMINS = [("John", "john@example.com"), ("Mary", "mary@example.com")]
 
 LOGGING = {
     'version': 1,

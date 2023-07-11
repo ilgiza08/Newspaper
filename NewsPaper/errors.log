@@ -1,0 +1,72 @@
+2023-07-11 06:42:24,007 ERROR Internal Server Error: /news/ /home/tester/project/NewsPaper/venv/lib/python3.8/site-packages/django/utils/log.py (<class 'ZeroDivisionError'>, ZeroDivisionError('division by zero'), <traceback object at 0x7fd8ed4ddec0>)
+Traceback (most recent call last):
+  File "/home/tester/project/NewsPaper/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 56, in inner
+    response = get_response(request)
+  File "/home/tester/project/NewsPaper/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/tester/project/NewsPaper/venv/lib/python3.8/site-packages/django/utils/decorators.py", line 134, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "/home/tester/project/NewsPaper/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 103, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/tester/project/NewsPaper/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 142, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/tester/project/NewsPaper/venv/lib/python3.8/site-packages/django/views/generic/list.py", line 174, in get
+    context = self.get_context_data()
+  File "/home/tester/project/NewsPaper/NewsPaper/article/views.py", line 35, in get_context_data
+    context = 1/0
+ZeroDivisionError: division by zero
+2023-07-11 06:42:24,009 ERROR "GET /news/ HTTP/1.1" 500 95458 /home/tester/project/NewsPaper/venv/lib/python3.8/site-packages/django/core/servers/basehttp.py None
+2023-07-11 06:48:55,459 ERROR Internal Server Error: /news/ /home/tester/project/NewsPaper/venv/lib/python3.8/site-packages/django/utils/log.py (<class 'ZeroDivisionError'>, ZeroDivisionError('division by zero'), <traceback object at 0x7f820c4bbec0>)
+Traceback (most recent call last):
+  File "/home/tester/project/NewsPaper/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 56, in inner
+    response = get_response(request)
+  File "/home/tester/project/NewsPaper/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/tester/project/NewsPaper/venv/lib/python3.8/site-packages/django/utils/decorators.py", line 134, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "/home/tester/project/NewsPaper/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 103, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/tester/project/NewsPaper/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 142, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/tester/project/NewsPaper/venv/lib/python3.8/site-packages/django/views/generic/list.py", line 174, in get
+    context = self.get_context_data()
+  File "/home/tester/project/NewsPaper/NewsPaper/article/views.py", line 35, in get_context_data
+    context = 1/0
+ZeroDivisionError: division by zero
+2023-07-11 06:48:55,461 ERROR "GET /news/ HTTP/1.1" 500 95459 /home/tester/project/NewsPaper/venv/lib/python3.8/site-packages/django/core/servers/basehttp.py None
+2023-07-11 07:06:43,407 ERROR Internal Server Error: /news/ /home/tester/project/NewsPaper/venv/lib/python3.8/site-packages/django/utils/log.py (<class 'ZeroDivisionError'>, ZeroDivisionError('division by zero'), <traceback object at 0x7fee03000d80>)
+Traceback (most recent call last):
+  File "/home/tester/project/NewsPaper/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 56, in inner
+    response = get_response(request)
+  File "/home/tester/project/NewsPaper/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/tester/project/NewsPaper/venv/lib/python3.8/site-packages/django/utils/decorators.py", line 134, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "/home/tester/project/NewsPaper/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 103, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/tester/project/NewsPaper/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 142, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/tester/project/NewsPaper/venv/lib/python3.8/site-packages/django/views/generic/list.py", line 174, in get
+    context = self.get_context_data()
+  File "/home/tester/project/NewsPaper/NewsPaper/article/views.py", line 31, in get_context_data
+    context = 1/0
+ZeroDivisionError: division by zero
+2023-07-11 07:06:43,409 ERROR "GET /news/ HTTP/1.1" 500 95458 /home/tester/project/NewsPaper/venv/lib/python3.8/site-packages/django/core/servers/basehttp.py None
+2023-07-11 07:40:09,401 ERROR Internal Server Error: /news/ /home/tester/project/NewsPaper/venv/lib/python3.8/site-packages/django/utils/log.py (<class 'ZeroDivisionError'>, ZeroDivisionError('division by zero'), <traceback object at 0x7faa17343c40>)
+Traceback (most recent call last):
+  File "/home/tester/project/NewsPaper/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 56, in inner
+    response = get_response(request)
+  File "/home/tester/project/NewsPaper/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/tester/project/NewsPaper/venv/lib/python3.8/site-packages/django/utils/decorators.py", line 134, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "/home/tester/project/NewsPaper/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 103, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/tester/project/NewsPaper/venv/lib/python3.8/site-packages/django/views/generic/base.py", line 142, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/tester/project/NewsPaper/venv/lib/python3.8/site-packages/django/views/generic/list.py", line 174, in get
+    context = self.get_context_data()
+  File "/home/tester/project/NewsPaper/NewsPaper/article/views.py", line 31, in get_context_data
+    context = 1/0
+ZeroDivisionError: division by zero
+2023-07-11 07:40:09,413 ERROR "GET /news/ HTTP/1.1" 500 95321 /home/tester/project/NewsPaper/venv/lib/python3.8/site-packages/django/core/servers/basehttp.py None

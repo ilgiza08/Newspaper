@@ -16,10 +16,6 @@ from django.http import HttpResponse
 from django.conf import settings
 from django.core.cache import cache
 
-import logging
-
-logger = logging.getLogger(__name__)
-
 
 class NewsList(ListView):
     """Выводит страницу со списком статей"""
@@ -32,6 +28,7 @@ class NewsList(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['is_not_author'] = not self.request.user.groups.filter(name='authors').exists()
+        # context = 1/0
         return context
 
 
